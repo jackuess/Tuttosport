@@ -8,8 +8,6 @@ from tuttosport.feedfetcher.db import Db
 import tuttosport.feedfetcher.settings as ff_settings
 
 
-
-print cherrypy.config
 class App(object):
     def __init__(self):
         self.storage = Db(**ff_settings.database)
