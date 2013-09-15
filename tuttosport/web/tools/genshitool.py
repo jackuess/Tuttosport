@@ -4,19 +4,16 @@ import cherrypy
 from genshi.template import Context, TemplateLoader
 
 class GenshiHandler():
-    def __init__(self, template, next_handler, type_):
+    def __init__(self, template, next_handler, method):
         self.template = template
         self.next_handler = next_handler
-        self.type = type_
+        self.method = method
         
     def __call__(self):
         context = Context(url=cherrypy.url, quote=quote)
         context.push(self.next_handler())
         stream = self.template.generate(context)
-        mime_types = {'xhtml': 'text/html',
-                      'xml': 'application/xml'}
-        cherrypy.response.headers['Content-Type'] = mime_types[self.type]
-        return stream.render(self.type)
+        return stream.render(self.method)
 
 class GenshiLoader(cherrypy.Tool):
     def __init__(self, auto_reload=False):
@@ -24,10 +21,10 @@ class GenshiLoader(cherrypy.Tool):
         super(GenshiLoader, self).__init__(point="before_handler",
                                            callable=self.callable)
 
-    def callable(self, filename, type_='xhtml', template_dir=None):
+    def callable(self, filename, method='xhtml', template_dir=None):
         if not template_dir.endswith('/'):
             template_dir += '/'
         template = self.loader.load(filename, relative_to=template_dir)
         cherrypy.request.handler = GenshiHandler(
-            template, cherrypy.request.handler, type_)
+            template, cherrypy.request.handler, method)
     

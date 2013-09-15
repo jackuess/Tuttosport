@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:py="http://genshi.edgewall.org/" version="2.0">
+    <channel>
+        <title>VSK Fotboll</title>
+        <link>http://www.vskfotboll.nu/</link>
+        <description>VSK Fotbolls officiella nyheter</description>
+        <atom:link href="http://www.vskfotboll.nu/" type="application/rss+xml"/>
+        <item py:for="entry in entries">
+            <title>${entry['title']}</title>
+            <link>${entry['link']}</link>
+            <description>
+            <![CDATA[
+            ${entry['text']}
+            ]]>
+            </description>
+            <pubDate>${entry['pub_date']}</pubDate>
+        </item>
+    </channel>
+</rss>

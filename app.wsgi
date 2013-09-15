@@ -9,7 +9,9 @@ cherrypy.tools.genshi_template = GenshiLoader(auto_reload=True)
 import tuttosport.web.app
 application = tuttosport.web.app.App()
 
-cherrypy.config.update({'tools.genshi_template.template_dir': os.path.abspath('tuttosport/web/templates')})
+cherrypy.config.update({'tools.genshi_template.template_dir': os.path.abspath('tuttosport/web/templates'),
+    'tools.encode.on': True,
+'tools.encode.encoding': 'utf-8'})
 
 if __name__ == '__main__':
     cherrypy.tree.mount(application, "/static", config={'/': {'tools.staticdir.on': True,
