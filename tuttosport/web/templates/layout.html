@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/" py:strip="">
+      <py:match path="head" once="true">
+        <head py:attrs="select('@*')">
+            <title py:with="title = list(select('title/text()'))">
+            Tuttosport<py:if test="title"> - ${title}</py:if>
+            </title>
+            <link rel="stylesheet" href="static/normalize.css" type="text/css" />
+            <link rel="stylesheet" href="static/style.css" type="text/css" />
+            ${select('*[local-name()!="title"]')}
+        </head>
+      </py:match>
+    <py:match path="body" once="true">
+        <body py:attrs="select('@*')">
+            <header>
+                <h1>Tuttosport</h1>
+                <nav><ul>
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="about.html">Om</a></li>
+                    <li><a href="rss.html">RSS</a></li>
+                </ul></nav>
+            </header>
+            ${select('*|text()')}
+        </body>
+    </py:match>
+</html>

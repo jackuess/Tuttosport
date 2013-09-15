@@ -1,0 +1,22 @@
+import re
+
+from sourcemodel.filters import *
+
+_filter = (ReFilter(re.compile('VSK\s', re.IGNORECASE))|
+           ReFilter(re.compile('\sVSK', re.IGNORECASE))|
+           (NewsFilter('bandy') & NewsFilter('innebandy').not_()))
+
+feeds = {'VSKFotboll.se': {'url': 'http://vskfotboll.nu/rss'},
+         'VSKBandy.se': {'url': 'http://vskbandy.se/index.php?'
+                                'option=com_content&view=category&layout=blog'
+                                '&id=13&Itemid=55&format=feed&type=rss'},
+         'vlt.se': {'url': 'http://vlt.se/1.122114',
+                    'filter': _filter}}
+resolution = 3
+max_workers = 5
+logging = {'mailhost': 'mail.wrutschkow.org',
+           'fromaddr': 'feedfetcher@tuttosport.se',
+           'toaddrs': ['john@example.org']
+           'subject': 'Feed Fetcher error'}
+database = {'name': 'tuttosport',
+            'collection': 'news'}

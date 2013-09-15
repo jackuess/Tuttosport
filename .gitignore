@@ -1,0 +1,3 @@
+doc/_build/
+*.pyc
+tuttosport/feedfetcher/settings.py

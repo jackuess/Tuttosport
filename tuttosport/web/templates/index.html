@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="layout.html" />
+    <head></head>
+    <body>
+        <py:for each="e in entries">
+            <h2><a href="${e['link']}">${e['title']}</a></h2>
+            <h3>${e['pub_date']} <span class="domain">[${e['domain'].replace('vsk', 'VSK')}]</span></h3>
+            <div>${e['text']}</div>
+        </py:for>
+        <footer>
+            <ul>
+                <li py:for="i in range(pages_count)"><a href="?offset=${i*limit}">${i+1}</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>
